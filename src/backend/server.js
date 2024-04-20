@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require('body-parser'); 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
+require('dotenv/config');
 
 app.use(bodyParser.json());
 
@@ -12,9 +13,10 @@ const mongoose = require("mongoose");
 const itemsRoute = require('../routes/items');
 const Item = require("../models/Item.js");
 
-mongoose.connect("mongodb+srv://siam1000:UrLa6H505E9vQG7a@cluster0.wtuuxq8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.DB_CONNECTION)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
+
 
 app.use('/items', itemsRoute);
 
