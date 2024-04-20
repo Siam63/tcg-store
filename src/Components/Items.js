@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import prods from '../products.json';
 import { useAuth } from '../AuthContext';
+import axios from 'axios';
 
 function Items() {
-  const [products, setProducts] = useState([]);
+  const [items, setItems] = useState([]);
   const { loggedIn } = useAuth();
 
   useEffect(() => {
-    fetchData();
+      fetchData();
   }, []);
 
   const fetchData = async () => {
-    setProducts(prods);
-  };
+      try{
+          const res = await axios.get('http://localhost:3002/api/items');
+          setItems(res.data);
+      }catch(error){
+          console.error('Error fetching data', error);
+      }
+  }
 
   return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-10">
-        {products.map((item, index) => (
+        {items.map((item, index) => (
           <div key={index} className="shadow-md border p-2 m-5">
             <div className="flex justify-center mb-5">
               <img src={item.url} alt="card-image" className="object-contain h-40 w-full"/>
             </div>
             <div className="flex justify-center">
-              <h1 className="font-bold text-lg">{item.title}</h1>
+              <h1 className="font-bold text-lg">{item.name}</h1>
             </div>
             <div className="p-2 flex justify-center">
               <p>{item.condition}</p>

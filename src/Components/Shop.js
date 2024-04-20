@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import Items from './Items.js';
 
 function Shop() {
-    const [items, setItems] = useState([]);
-
-    useEffect(() => {
-        axios.get("/api/items")
-            .then(response => setItems(response.data))
-            .catch(error => console.error(error));
-    }, []);
-
     return (
         <div>
-            {/* <Items/> */}
-
-            <h1>Items</h1>
-            <ul>
-                {items.map(item => (
-                <li key={item._id}>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                </li>
-                ))}
-            </ul>
+            <h1>Items from MongoDB</h1>
+            <div>
+                <Items />
+            </div>
         </div>
     )
 }

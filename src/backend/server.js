@@ -1,12 +1,16 @@
 const express = require("express");
-const bodyParser = require('body-parser'); 
 const app = express();
+const cors = require('cors');
 const PORT = process.env.PORT || 3002;
 require('dotenv/config');
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors());
+app.listen(3002, () => console.log(`Server running on port ${PORT}`));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.get('/cors', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+})
 
 const mongoose = require("mongoose");
 
