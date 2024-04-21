@@ -8,6 +8,7 @@ import HomePage from './Components/HomePage';
 import Shop from './Components/Shop';
 import LoginPage from './Components/LoginPage';
 import AddItem from './Components/AddItem';
+import ViewItem from './Components/ViewItem';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/shop" element={<Shop/>}/>
           <Route path="/login" element={<LoginPage/> }/>
           <Route path="/addItem" element={<AddItem/>}/>
+          <Route path="/items/:id" element={<ViewItem/>}/>
         </Routes>
         <Footer/>
       </div>

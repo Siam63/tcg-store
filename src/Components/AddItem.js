@@ -32,6 +32,15 @@ function AddItem() {
         }
     };
 
+    const handleClear = () => {
+        setFormData({
+            name: '',
+            condition: '',
+            price: '',
+            picture: ''
+        });
+    };
+
     return (
         <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-4">Add New Item</h2>
@@ -80,12 +89,19 @@ function AddItem() {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="w-full bg-indigo-500 text-white py-3 px-6 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
-        >
-          Submit
-        </button>
+        <div className="flex">
+            <button
+            type="submit"
+            className="w-full bg-indigo-500 text-white py-3 px-6 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+            >
+            Submit
+            </button>
+            <button onClick={handleClear}
+            className="ml-4 w-full bg-indigo-500 text-white py-3 px-6 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+            >
+            Clear Fields
+            </button>
+        </div>
       </form>
     </div>
     )
