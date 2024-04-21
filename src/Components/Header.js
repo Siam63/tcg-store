@@ -19,8 +19,8 @@ function Header() {
                 
                 {loggedIn ? (
                     <div>
-                        {/* <Link to="/logout" href="#logout" className="text-lg text-white hover:text-gray-300 transition-all">Logout</Link> */}
                         <button onClick={handleLogout} className="text-lg text-white hover:text-gray-300 transition-all">Logout</button>
+                        <Link to="/addItem" href="#login" className="ml-4 text-lg text-white hover:text-gray-300 transition-all">Add Item</Link>
                     </div>
                 ) : (
                     <Link to="/login" href="#login" className="text-lg text-white hover:text-gray-300 transition-all">Login</Link>

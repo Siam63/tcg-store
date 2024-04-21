@@ -49,7 +49,8 @@ app.post("/api/items", async (req, res) => {
     const item = new Item({
         name: req.body.name,
         condition: req.body.condition,
-        price: req.body.price
+        price: req.body.price,
+        picture: req.body.picture
     });
 
     try{
