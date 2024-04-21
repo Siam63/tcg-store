@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 require('dotenv/config');
 
 app.use(express.json());
 app.use(cors());
-app.listen(3002, () => console.log(`Server running on port ${PORT}`));
 
 app.get('/cors', (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
@@ -82,4 +81,27 @@ app.delete("/api/items/:id", async (req, res) => {
       res.status(500).send("Server Error");
     }
 });
-  
+
+// update an item with a specific ID
+app.put("/api/edit/:id", async (req, res) => {
+    try{
+        const itemId = req.params.id;
+
+        if(!mongoose.Types.ObjectId.isValid(itemId)){
+            return res.status(400).json({ message: "Invalid item ID" });
+        }
+
+        const updatedItem = await Item.findByIdAndUpdate(itemId, req.body, { new: true });
+
+        if(!updatedItem){
+            return res.status(400).json({ message: "Item not found" });
+        }
+
+        res.json({ message: "Item successfully updated", updatedItem });
+    }catch (error){
+        console.error(error);
+        res.status(500).send("Server Error...");
+    }
+})
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

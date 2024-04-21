@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
 import axios from 'axios';
 
 function ViewItem() {
     const { id } = useParams();
     const [item, setItem] = useState(null);
-    const { loggedIn } = useAuth();
 
     useEffect(() => {
         fetchItem();
     }, []);
 
     const fetchItem = async () => {
-        console.log(loggedIn);
         try {
             const response = await axios.get(`http://localhost:3002/api/items/${id}`);
             setItem(response.data);

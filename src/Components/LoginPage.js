@@ -14,7 +14,7 @@ function LoginPage() {
   const handleLogin = () => {
     if(username === "" || password === ""){
         setAlert("Please fill out all fields!");
-    }else if(username === "abc" && password === "123"){
+    }else if(username === "siam1000" && password === "password123"){
         console.log('Logged in successfully');
         setAlert('Successfully logged in as admin.');
         login();
