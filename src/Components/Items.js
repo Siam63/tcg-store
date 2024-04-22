@@ -2,14 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+// import Cart from './Cart';
 
 function Items() {
+  const [total, setTotal] = useState(0);
   const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartMinimized, setIsCartMinimized] = useState(false);
   const { loggedIn } = useAuth();
 
   useEffect(() => {
       fetchData();
   }, []);
+
+  useEffect(() => {
+    const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
+    setTotal(subtotal);
+  }, [cartItems]);
 
   const fetchData = async () => {
       try{
@@ -29,12 +38,32 @@ function Items() {
     }
   }
 
+  const addToCart = (item) => {
+    if(cartItems.some(cartItem => cartItem._id === item._id)){
+      alert("Item is already in the cart!");
+    }else{
+      setCartItems([...cartItems, item]);
+    }
+    setTotal(total => total + item.price);
+    console.log(total);
+  };
+
+  const removeFromCart = (index) => {
+    const updatedItems = [...cartItems];
+    updatedItems.splice(index, 1);
+    setCartItems(updatedItems);
+  };
+
+  const toggleCartMinimize = () => {
+    setIsCartMinimized(!isCartMinimized);
+  }
+
   return (
+    <div className="mr-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-10">
         {items.map((item, index) => (
           <div key={index} className="shadow-md border p-2 m-5">
             <div className="flex justify-center mb-5">
-              {console.log(item.picture)}
               <img src={item.picture} alt="card-image" className="transition-all object-contain h-40 w-full"/>
               <div className="hover:cursor-pointer">
                 <Link to={`/items/${item._id}`}>
@@ -54,7 +83,8 @@ function Items() {
               <p>${item.price} USD</p>
             </div>
             <div className="flex justify-evenly">
-              <button className="rounded-md mt-2 bg-green-600 text-white p-2 hover:bg-green-700 transition-all">Add to Cart</button>
+              <button className="rounded-md mt-2 bg-green-600 text-white p-2 hover:bg-green-700 transition-all" onClick={() => addToCart(item)}>Add to Cart</button>
+              
               {loggedIn ? 
                 <div className="flex ml-5">
                   <svg onClick={() => handleRemove(item._id)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hover:cursor-pointer w-8 h-8 mt-3">
@@ -72,6 +102,53 @@ function Items() {
           </div>
         ))}
       </div>
+
+      <div className={`fixed top-2 right-0 h-full w-1/4 bg-gray-100 bg-opacity-90 p-4 overflow-y-auto transition-all ${isCartMinimized ? 'w-16' : ''}`}>
+        {isCartMinimized ? '' : <h2 className="text-2xl font-bold mb-4">Your Cart</h2>}
+        
+        <button onClick={toggleCartMinimize} className="absolute top-2 right-2 focus:outline-none">
+          {isCartMinimized ? (
+            <h3>Cart</h3>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          )}
+        </button>
+        {!isCartMinimized && (
+          <>
+            {cartItems.length === 0 ? (
+              <p>Your cart is empty</p>
+            ) : (
+              <ul>
+                {cartItems.map((item, index) => (
+                  <div className="p-2 my-2 border-solid border-2 border-gray-600">
+                    <li key={index}>
+                      <div className="flex">
+                        <p>{item.name}</p>
+                      </div>
+                      <img src={item.picture} alt="card-image" className="transition-all object-contain h-10 w-10"/>
+                      <div className="flex justify-between">
+                        <button className="text-sm rounded-md mt-2 bg-red-600 text-white p-2 hover:bg-red-700 transition-all" onClick={() => removeFromCart(index)}>Remove</button>
+                        <p className="font-bold ml-5 mt-4">${item.price}</p>
+                      </div>
+                    </li>
+                  </div>
+                ))}
+              </ul>
+            )}
+            <div className="flex font-bold mt-4 fixed bottom-0 bg-white">
+              <div className="">
+                <button className="rounded-md mt-2 bg-green-600 text-white p-2 hover:bg-green-700 transition-all">Checkout</button>
+              </div>
+              <div className="mt-3.5 ml-8">
+                <p className="text-lg">Subtotal: ${total.toFixed(2)}</p>
+              </div>
+            </div>
+          </>
+        )}        
+      </div>
+    </div>
   )
 }
 

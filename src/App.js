@@ -14,7 +14,7 @@ import EditItem from './Components/EditItem';
 function App() {
   return (
     <AuthProvider>
-      <div className="">
+      <div>
         <Header/>
         <Routes>
           <Route path="/" element={<HomePage/>}/>
@@ -24,7 +24,7 @@ function App() {
           <Route path="/items/:id" element={<ViewItem/>}/>
           <Route path="/edit/:id" element={<EditItem/>}/>
         </Routes>
-        <Footer/>
+        {/* <Footer/> */}
       </div>
     </AuthProvider>
   );
