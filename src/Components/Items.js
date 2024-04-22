@@ -103,15 +103,26 @@ function Items() {
         ))}
       </div>
 
-      <div className={`fixed top-2 right-0 h-full w-1/4 bg-gray-100 bg-opacity-90 p-4 overflow-y-auto transition-all ${isCartMinimized ? 'w-16' : ''}`}>
-        {isCartMinimized ? '' : <h2 className="text-2xl font-bold mb-4">Your Cart</h2>}
+      <div className={`fixed top-16 right-0 h-full w-1/4 bg-gray-100 bg-opacity-90 p-4 overflow-y-auto transition-all ${isCartMinimized ? 'w-16' : ''}`}>
+        {isCartMinimized ? '' : 
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+            {cartItems.length > 0 ? <p>Total Items: {cartItems.length}</p> : ''}
+          </div>
+        }
         
         <button onClick={toggleCartMinimize} className="absolute top-2 right-2 focus:outline-none">
           {isCartMinimized ? (
-            <h3>Cart</h3>
+            
+            <div className="flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+              </svg>
+              {cartItems.length > 0 ? <h3 className="ml-1">({cartItems.length})</h3> : ''}
+            </div>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
             </svg>
           )}
         </button>
@@ -122,12 +133,12 @@ function Items() {
             ) : (
               <ul>
                 {cartItems.map((item, index) => (
-                  <div className="p-2 my-2 border-solid border-2 border-gray-600">
+                  <div className="p-2 my-2 border-solid rounded-lg border-2 bg-slate-100 border-gray-600 opacity-90">
                     <li key={index}>
                       <div className="flex">
                         <p>{item.name}</p>
                       </div>
-                      <img src={item.picture} alt="card-image" className="transition-all object-contain h-10 w-10"/>
+                      <img src={item.picture} alt="card-image" className="mt-1.5 transition-all object-contain h-10 w-10"/>
                       <div className="flex justify-between">
                         <button className="text-sm rounded-md mt-2 bg-red-600 text-white p-2 hover:bg-red-700 transition-all" onClick={() => removeFromCart(index)}>Remove</button>
                         <p className="font-bold ml-5 mt-4">${item.price}</p>
@@ -137,12 +148,10 @@ function Items() {
                 ))}
               </ul>
             )}
-            <div className="flex font-bold mt-4 fixed bottom-0 bg-white">
-              <div className="">
-                <button className="rounded-md mt-2 bg-green-600 text-white p-2 hover:bg-green-700 transition-all">Checkout</button>
-              </div>
-              <div className="mt-3.5 ml-8">
-                <p className="text-lg">Subtotal: ${total.toFixed(2)}</p>
+            <div className="font-bold w-1/5 p-2 my-2 mr-2 fixed bottom-0 bg-white justify-center opacity-90 rounded-lg">
+              <div className="flex justify-center">
+                <button className="rounded-md mr-4 bg-green-600 text-white p-2 hover:bg-green-700 transition-all">Checkout</button>
+                <p className="text-xs mt-3">Subtotal: ${total.toFixed(2)}</p>
               </div>
             </div>
           </>

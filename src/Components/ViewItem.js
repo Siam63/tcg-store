@@ -29,7 +29,6 @@ function ViewItem() {
                     <p className="text-center font-bold">${item.price} USD</p>
                     <div className="flex justify-evenly mt-4">
                         <a href={'/shop'} className="hover:cursor-pointer ml-2 text-xl rounded-md bg-gray-200 p-2 hover:bg-gray-300 transition-all">Back</a>
-                        <button className="hover:cursor-pointer ml-2 text-xl rounded-md bg-gray-200 p-2 hover:bg-gray-300 transition-all">Add to Cart</button>
                     </div>
                 </div>
             ) : (
