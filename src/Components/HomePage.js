@@ -7,9 +7,9 @@ const HomePage = () => {
       <section className="py-16 bg-gray-800 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Welcome to MyShop</h1>
-            <p className="text-lg mb-8">Discover our latest collection of amazing products.</p>
-            <Link to="/shop" className="bg-white text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-200">Shop Now</Link>
+            <h1 className="text-4xl font-bold mb-4">Welcome to YugiBuzz!</h1>
+            <p className="text-lg mb-8">Your one-stop-shop for all your Yugioh needs. Discover a wide range of Yugioh products at competitive prices.</p>
+            <Link to="/shop" className="transition-all bg-white text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-200">Shop Now</Link>
           </div>
         </div>
       </section>
@@ -23,39 +23,39 @@ const HomePage = () => {
 
             {/* Example Product Card */}
             <div className="bg-white shadow-md rounded-md p-4">
-              <img src="https://via.placeholder.com/300" alt="Product" className="w-full h-48 object-cover mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Product Name</h3>
+              <img src="https://i.ebayimg.com/images/g/takAAOSw~Dlj77UY/s-l400.jpg" alt="Product" className="w-full h-48 object-contain mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Yugioh Rubber Playing Mat</h3>
               <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               <div className="flex justify-between">
-                <span className="text-gray-800 font-semibold">$99.99</span>
+                <span className="text-gray-800 font-semibold">$39.99</span>
               </div>
             </div>
 
             <div className="bg-white shadow-md rounded-md p-4">
-              <img src="https://via.placeholder.com/300" alt="Product" className="w-full h-48 object-cover mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Product Name</h3>
+              <img src="https://product-images.tcgplayer.com/206433.jpg" alt="Product" className="w-full h-48 object-contain mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Yugioh Deck Box</h3>
               <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               <div className="flex justify-between">
-                <span className="text-gray-800 font-semibold">$99.99</span>
+                <span className="font-semibold text-red-600">OUT OF STOCK</span>
               </div>
             </div>
 
             <div className="bg-white shadow-md rounded-md p-4">
-              <img src="https://via.placeholder.com/300" alt="Product" className="w-full h-48 object-cover mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Product Name</h3>
+              <img src="https://m.media-amazon.com/images/I/71ba8a8obOL.jpg" alt="Product" className="w-full h-48 object-contain mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Yugioh Sleeves</h3>
               <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               <div className="flex justify-between">
-                <span className="text-gray-800 font-semibold">$99.99</span>
+                <span className="text-gray-800 font-semibold">$5.99</span>
                 
               </div>
             </div>
 
             <div className="bg-white shadow-md rounded-md p-4">
-              <img src="https://via.placeholder.com/300" alt="Product" className="w-full h-48 object-cover mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Product Name</h3>
+              <img src="https://i.ebayimg.com/images/g/xq0AAOSwywJiGTqh/s-l1200.jpg" alt="Product" className="w-full h-48 object-contain mb-4" />
+              <h3 className="text-lg font-semibold mb-2">Yugioh Cardboard Play Mat</h3>
               <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               <div className="flex justify-between">
-                <span className="text-gray-800 font-semibold">$99.99</span>
+                <span className="text-gray-800 font-semibold">$15.00</span>
               </div>
             </div>
             {/* End Example Product Card */}

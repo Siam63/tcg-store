@@ -14,6 +14,7 @@ function Items() {
 
   useEffect(() => {
       fetchData();
+      loadCartItemsFromStorage();
   }, []);
 
   useEffect(() => {
@@ -53,17 +54,20 @@ function Items() {
     if(cartItems.some(cartItem => cartItem._id === item._id)){
       alert("Item is already in the cart!");
     }else{
-      setCartItems([...cartItems, item]);
+      const updatedCart = [...cartItems, item];
       showItemAddedPopup(item.name);
+      setCartItems(updatedCart);
+      saveCartItemsToStorage(updatedCart);
     }
     setTotal(total => total + item.price);
     console.log(total);
   };
 
   const removeFromCart = (index) => {
-    const updatedItems = [...cartItems];
-    updatedItems.splice(index, 1);
-    setCartItems(updatedItems);
+    const updatedCart = [...cartItems];
+    updatedCart.splice(index, 1);
+    setCartItems(updatedCart);
+    saveCartItemsToStorage(updatedCart);
 
     setPopupContent('Successfully removed from the cart.');
     setShowPopup(true);
@@ -77,6 +81,20 @@ function Items() {
   const toggleCartMinimize = () => {
     setIsCartMinimized(!isCartMinimized);
   }
+
+  const saveCartItemsToStorage = (cartItems) => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  };
+
+  const loadCartItemsFromStorage = () => {
+    const storedCartItems = localStorage.getItem('cartItems');
+
+    if(storedCartItems && storedCartItems !== "undefined"){
+      setCartItems(JSON.parse(storedCartItems));
+    }else{
+      setCartItems([]);
+    }
+  };
 
   return (
     <div className="mr-16">
@@ -166,7 +184,7 @@ function Items() {
                       </div>
                       <img src={item.picture} alt="card-image" className="mt-1.5 transition-all object-contain h-10 w-10"/>
                       <div className="flex justify-between">
-                        <button className="text-sm rounded-md mt-2 bg-red-600 text-white p-2 hover:bg-red-700 transition-all" onClick={() => removeFromCart(index, item.title)}>Remove</button>
+                        <button className="text-sm rounded-md mt-2 bg-red-600 text-white p-2 hover:bg-red-700 transition-all" onClick={() => removeFromCart(index)}>Remove</button>
                         <p className="font-bold ml-5 mt-4">${item.price}</p>
                       </div>
                     </li>
