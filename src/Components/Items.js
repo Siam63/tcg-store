@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import Cart from './Cart';
 
 function Items() {
   const [total, setTotal] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupContent, setPopupContent] = useState('');
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [isCartMinimized, setIsCartMinimized] = useState(false);
@@ -38,11 +39,22 @@ function Items() {
     }
   }
 
+  const showItemAddedPopup = (itemName) => {
+    setPopupContent(`${itemName} was added to the cart.`);
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
+      setPopupContent('');
+    }, 2000);
+  }
+
   const addToCart = (item) => {
     if(cartItems.some(cartItem => cartItem._id === item._id)){
       alert("Item is already in the cart!");
     }else{
       setCartItems([...cartItems, item]);
+      showItemAddedPopup(item.name);
     }
     setTotal(total => total + item.price);
     console.log(total);
@@ -52,6 +64,14 @@ function Items() {
     const updatedItems = [...cartItems];
     updatedItems.splice(index, 1);
     setCartItems(updatedItems);
+
+    setPopupContent('Successfully removed from the cart.');
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
+      setPopupContent('');
+    }, 2000);
   };
 
   const toggleCartMinimize = () => {
@@ -60,9 +80,9 @@ function Items() {
 
   return (
     <div className="mr-16">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-5">
         {items.map((item, index) => (
-          <div key={index} className="shadow-md border p-2 m-5">
+          <div key={index} className="shadow-md border rounded-md p-4 m-2">
             <div className="flex justify-center mb-5">
               <img src={item.picture} alt="card-image" className="transition-all object-contain h-40 w-full"/>
               <div className="hover:cursor-pointer">
@@ -74,14 +94,17 @@ function Items() {
               </div>
             </div>
             <div className="flex justify-center">
-              <h1 className="font-bold text-md justify-center text-center">{item.name}</h1>
+              <h1 className="font-semibold text-md justify-center text-center">{item.name}</h1>
             </div>
             <div className="p-2 flex justify-center">
               <p>{item.condition}</p>
             </div>
-            <div className="mt-2 flex justify-center">
-              <p>${item.price} USD</p>
+            <div className="flex justify-center mb-2">
+              <div className="text-sm font-bold mt-2 flex justify-center border-solid border-2 w-1/2 rounded-md border-gray-400">
+                <p>${item.price.toFixed(2)} USD</p>
+              </div>
             </div>
+
             <div className="flex justify-evenly">
               <button className="rounded-md mt-2 bg-green-600 text-white p-2 hover:bg-green-700 transition-all" onClick={() => addToCart(item)}>Add to Cart</button>
               
@@ -103,7 +126,7 @@ function Items() {
         ))}
       </div>
 
-      <div className={`fixed top-16 right-0 h-full w-1/4 bg-gray-100 bg-opacity-90 p-4 overflow-y-auto transition-all ${isCartMinimized ? 'w-16' : ''}`}>
+      <div className={`fixed top-0 right-0 h-full w-1/4 bg-gray-100 bg-opacity-90 p-4 overflow-y-auto transition-all ${isCartMinimized ? 'w-16' : ''}`}>
         {isCartMinimized ? '' : 
           <div>
             <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
@@ -114,18 +137,21 @@ function Items() {
         <button onClick={toggleCartMinimize} className="absolute top-2 right-2 focus:outline-none">
           {isCartMinimized ? (
             
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-2.5">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
               </svg>
               {cartItems.length > 0 ? <h3 className="ml-1">({cartItems.length})</h3> : ''}
             </div>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
-            </svg>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
+              </svg>
+            </div>
           )}
         </button>
+
         {!isCartMinimized && (
           <>
             {cartItems.length === 0 ? (
@@ -140,7 +166,7 @@ function Items() {
                       </div>
                       <img src={item.picture} alt="card-image" className="mt-1.5 transition-all object-contain h-10 w-10"/>
                       <div className="flex justify-between">
-                        <button className="text-sm rounded-md mt-2 bg-red-600 text-white p-2 hover:bg-red-700 transition-all" onClick={() => removeFromCart(index)}>Remove</button>
+                        <button className="text-sm rounded-md mt-2 bg-red-600 text-white p-2 hover:bg-red-700 transition-all" onClick={() => removeFromCart(index, item.title)}>Remove</button>
                         <p className="font-bold ml-5 mt-4">${item.price}</p>
                       </div>
                     </li>
@@ -156,6 +182,13 @@ function Items() {
             </div>
           </>
         )}        
+      </div>
+      <div>
+        {showPopup && (
+          <div className="fixed bottom-4 left-4 bg-gray-800 text-white p-2 rounded">
+            {popupContent}
+          </div>
+        )}
       </div>
     </div>
   )
