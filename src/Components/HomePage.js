@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen" style={{backgroundImage: "url(https://static1.colliderimages.com/wordpress/wp-content/uploads/2022/01/yugioh-best-duels.jpg)"}}>
       <section className="py-16 bg-gray-800 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-4">Welcome to YugiBuzz!</h1>
             <p className="text-lg mb-8">Your one-stop-shop for all your Yugioh needs. Discover a wide range of Yugioh products at competitive prices.</p>
-            <Link to="/shop" className="transition-all bg-white text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-200">Shop Now</Link>
+            <Link to="/shop" className="text-xl bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Shop Now</Link>
           </div>
         </div>
       </section>
@@ -17,7 +17,7 @@ const HomePage = () => {
       {/* Featured Products */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-semibold mb-8">Featured Products</h2>
+          <h2 className="p-2 text-3xl font-semibold mb-8 text-white bg-gray-800 w-1/4 text-center rounded-lg shadow-lg">Featured Products</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {/* Product Cards */}
 
@@ -66,7 +66,7 @@ const HomePage = () => {
       {/* Footer */}
       <footer className="bottom-0 fixed w-full bg-gray-800 text-white py-8">
         <div className="container mx-auto flex justify-between items-center px-4">
-          <p>&copy; 2024 MyShop. All rights reserved.</p>
+          <p>&copy; 2024 YugiBuzz. All rights reserved.</p>
           <div className="flex">
             <Link to="/terms" className="text-gray-300 hover:text-white mx-4">Terms of Service</Link>
             <Link to="/privacy" className="text-gray-300 hover:text-white mx-4">Privacy Policy</Link>

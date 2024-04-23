@@ -9,7 +9,7 @@ function Items() {
   const [popupContent, setPopupContent] = useState('');
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const [isCartMinimized, setIsCartMinimized] = useState(false);
+  const [isCartMinimized, setIsCartMinimized] = useState(true);
   const { loggedIn } = useAuth();
 
   useEffect(() => {

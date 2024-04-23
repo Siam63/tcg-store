@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Items from './Items.js';
 
 function Shop() {
