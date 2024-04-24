@@ -14,14 +14,12 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="p-2 text-3xl font-semibold mb-8 text-white bg-gray-800 w-1/4 text-center rounded-lg shadow-lg">Featured Products</h2>
+          <h2 className="p-2 text-3xl font-semibold mb-8 text-black bg-slate-300 w-1/4 text-center rounded-lg shadow-lg">Featured Products</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {/* Product Cards */}
 
-            {/* Example Product Card */}
             <div className="bg-white shadow-md rounded-md p-4">
               <img src="https://i.ebayimg.com/images/g/takAAOSw~Dlj77UY/s-l400.jpg" alt="Product" className="w-full h-48 object-contain mb-4" />
               <h3 className="text-lg font-semibold mb-2">Yugioh Rubber Playing Mat</h3>

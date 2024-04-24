@@ -13,18 +13,14 @@ app.get('/cors', (req, res) => {
 
 const mongoose = require("mongoose");
 
-const itemsRoute = require('../routes/items');
 const Item = require("../models/Item.js");
 
 mongoose.connect(process.env.DB_CONNECTION)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 
-
-app.use('/items', itemsRoute);
-
 // get all the items
-app.get('/api/items', async (req, res) => {
+app.get('/api/getItems', async (req, res) => {
     try{
         const items = await Item.find();
         res.json(items);
@@ -34,7 +30,7 @@ app.get('/api/items', async (req, res) => {
 })
 
 // get a specific item
-app.get("/api/items/:id", async (req, res) => {
+app.get("/api/getItem/:id", async (req, res) => {
     try{
         const item = await Item.findById(req.params.id);
         res.json(item);
