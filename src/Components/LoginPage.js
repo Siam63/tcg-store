@@ -4,7 +4,7 @@ import { useAuth } from '../AuthContext';
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [alert, setAlert] = useState('');
+  const [alertUser, setAlertUser] = useState('');
   const { loggedIn, login } = useAuth();
 
   useEffect(() => {
@@ -13,15 +13,15 @@ function LoginPage() {
 
   const handleLogin = () => {
     if(username === "" || password === ""){
-        setAlert("Please fill out all fields!");
+        setAlertUser("Please fill out all fields!");
+    }else if(username !== "siam1000" || password !== "password123"){
+        alert('Invalid login token! Check the username and/or password.');
     }else if(username === "siam1000" && password === "password123"){
         console.log('Logged in successfully');
-        setAlert('Successfully logged in as admin.');
+        setAlertUser('Successfully logged in as admin.');
         login();
     }else{
-        console.log('Username:', username);
-        console.log('Password:', password);
-        setAlert('');
+        setAlertUser('');
     }
   };
 
@@ -40,14 +40,14 @@ function LoginPage() {
 
         {(username === "" || password === "") &&
             <div>
-                <h3 className="mb-2 text-red-600 text-sm">{alert}</h3>
+                <h3 className="mb-2 text-red-600 text-sm">{alertUser}</h3>
             </div>
         }
 
         {loggedIn ? (
             <div>  
                 <div>
-                    <h3 className="mb-4 text-green-600 text-sm">{alert}</h3>
+                    <h3 className="mb-4 text-green-600 text-sm">{alertUser}</h3>
                 </div>
                 {/* <Link to="/" className="bg-indigo-500 text-white py-3 px-6 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 text-lg">Logout</Link> */}
             </div>
