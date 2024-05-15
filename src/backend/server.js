@@ -7,9 +7,11 @@ require('dotenv/config');
 app.use(express.json());
 app.use(cors());
 
-app.get('/cors', (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-})
+app.use(cors({ origin: 'http://localhost:3000' })); // Adjust the origin as needed
+
+// app.get('/cors', (req, res) => {
+//     res.set('Access-Control-Allow-Origin', '*');
+// })
 
 const mongoose = require("mongoose");
 
@@ -30,7 +32,7 @@ app.get('/api/getItems', async (req, res) => {
 })
 
 // get a specific item
-app.get("/api/getItem/:id", async (req, res) => {
+app.get('/api/getItem/:id', async (req, res) => {
     try{
         const item = await Item.findById(req.params.id);
         res.json(item);

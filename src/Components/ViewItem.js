@@ -8,12 +8,13 @@ function ViewItem() {
 
     useEffect(() => {
         fetchItem();
-    }, []);
+    }, [id]);
 
     const fetchItem = async () => {
         try {
             const response = await axios.get(`http://localhost:3002/api/getItem/${id}`);
             setItem(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching item details:', error);
         }

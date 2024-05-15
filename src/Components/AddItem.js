@@ -26,7 +26,6 @@ function AddItem() {
                 picture
             };
             const res = await axios.post('http://localhost:3002/api/items', newItem);
-            console.log(res.data);
         }catch (err) {
             console.error(err);
         }

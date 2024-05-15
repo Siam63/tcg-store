@@ -17,7 +17,7 @@ function EditItem() {
 
     const fetchItem = async () => {
         try {
-            const res = await axios.get(`http://localhost:3002/api/items/${id}`);
+            const res = await axios.get(`http://localhost:3002/api/getItem/${id}`);
             setItem(res.data);
         } catch (error) {
             console.error('Error fetching item:', error);
